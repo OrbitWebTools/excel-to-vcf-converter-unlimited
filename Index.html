@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlimited Excel to VCF Converter - Free, Secure & Offline (2026)</title>
+    
+    <meta name="description" content="Convert Excel (XLSX) to VCF (vCard) online for free. Unlimited contacts, 100% private (offline), supports iPhone & Android. Fixes scientific notation errors.">
+    <meta name="keywords" content="excel to vcf, xlsx to vcard, bulk contact converter, excel to contacts app, free vcf converter, offline vcf tool, iphone contact converter">
+    <meta name="author" content="Ammshik Tools">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="Unlimited Excel to VCF Converter - Free & Secure">
+    <meta property="og:description" content="Convert 10,000+ contacts instantly. No server uploads. Runs offline.">
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Unlimited Excel to VCF Converter",
+      "operatingSystem": "Web Browser",
+      "applicationCategory": "UtilitiesApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": "Unlimited conversion, Offline privacy, iPhone N-Field fix, UTF-8 Support"
+    }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --surface: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #10b981;
+            --border: #334155;
+            --error: #ef4444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--secondary);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+        }
+
+        /* Header */
+        header { text-align: center; margin-bottom: 35px; }
+        h1 { 
+            font-size: 2rem; 
+            font-weight: 800; 
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+        .badge { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid var(--border); 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            font-size: 0.8rem; 
+            color: var(--accent);
+        }
+
+        /* Main Card */
+        .card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Step 1: Upload */
+        .upload-area {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+        }
+        .icon-upload { font-size: 2.5rem; display: block; margin-bottom: 15px; }
+        .hint { color: var(--text-muted); font-size: 0.9rem; margin-top: 5px; }
+
+        /* Step 2: Controls */
+        .controls { margin-top: 20px; }
+        label { display: block; color: var(--text-muted); margin-bottom: 5px; font-size: 0.9rem; }
+        select {
+            width: 100%;
+            padding: 12px;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+        select:focus { border-color: var(--primary); }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .btn:active { transform: scale(0.98); }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-download { background: var(--accent); color: white; margin-top: 15px; display: none; }
+        .btn-download:hover { filter: brightness(1.1); }
+        .btn-reset { background: transparent; color: var(--text-muted); border: 1px solid var(--border); margin-top: 10px; display: none;}
+
+        /* Utilities */
+        .hidden { display: none; }
+        .error-msg { 
+            color: #fca5a5; 
+            background: rgba(239, 68, 68, 0.1); 
+            padding: 10px; 
+            border-radius: 6px; 
+            margin-top: 15px; 
+            text-align: center;
+            display: none;
+            font-size: 0.9rem;
+        }
+        .success-stats { text-align: center; color: var(--accent); margin-top: 15px; font-weight: bold; }
+
+        /* SEO Text Area */
+        .seo-text { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 20px; color: var(--text-muted); font-size: 0.9rem; }
+        .seo-text h2 { color: var(--text-main); font-size: 1.2rem; margin-bottom: 10px; margin-top: 20px; }
+        .seo-text p { margin-bottom: 10px; }
+
+        /* Spinner */
+        .spinner {
+            display: inline-block; width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite;
+            margin-right: 8px; vertical-align: middle; display: none;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Excel to VCF Converter</h1>
+            <div class="badges">
+                <span class="badge">🔒 100% Secure (Offline)</span>
+                <span class="badge">♾️ Unlimited Rows</span>
+                <span class="badge">📱 iPhone & Android</span>
+            </div>
+        </header>
+
+        <main class="card">
+            <div id="step-upload" class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <span class="icon-upload">📂</span>
+                <h3>Click to Upload Excel File</h3>
+                <p class="hint">Supports .xlsx and .xls formats</p>
+                <input type="file" id="fileInput" accept=".xlsx, .xls" style="display: none;">
+            </div>
+
+            <div id="step-map" class="controls hidden">
+                <label>👤 Select Name Column:</label>
+                <select id="nameCol"></select>
+
+                <label>📞 Select Phone Column:</label>
+                <select id="phoneCol"></select>
+
+                <button id="convertBtn" class="btn btn-primary" onclick="convertContacts()">
+                    <span class="spinner" id="btnSpinner"></span>
+                    Convert to VCF
+                </button>
+            </div>
+
+            <div id="step-download" class="hidden">
+                <div class="success-stats" id="stats"></div>
+                <button class="btn btn-download" id="downloadBtn" onclick="downloadFile()">Download VCF File ⬇️</button>
+                <button class="btn btn-reset" style="display:block; width:100%" onclick="location.reload()">Start Over</button>
+            </div>
+
+            <div id="errorMsg" class="error-msg"></div>
+        </main>
+
+        <article class="seo-text">
+            <h2>Why is this the best VCF Converter?</h2>
+            <p>Unlike other tools that limit you to 50 contacts or upload your data to risky servers, this tool uses <strong>Client-Side Processing</strong>. Your Excel file never leaves your computer, ensuring 100% privacy and security.</p>
+            
+            <h2>Features:</h2>
+            <ul>
+                <li><strong>Scientific Notation Fix:</strong> Automatically converts <code>9.87E+09</code> to <code>9876543210</code>.</li>
+                <li><strong>UTF-8 Support:</strong> Perfectly handles Hindi, Marathi, Arabic, and other non-English names.</li>
+                <li><strong>iPhone Compatible:</strong> Adds special <code>N</code> field tags so contacts appear correctly on iOS.</li>
+            </ul>
+        </article>
+
+        <footer style="text-align: center; margin-top: 30px; color: var(--text-muted); font-size: 0.8rem;">
+            &copy; 2026 Privacy Tools. No Rights Reserved.
+        </footer>
+    </div>
+
+    <script>
+        let excelData = [];
+        let vcfOutput = "";
+
+        // File Selection
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                    
+                    // Parse Data
+                    excelData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+                    if (excelData.length === 0) throw new Error("File is empty.");
+
+                    // Detect Columns
+                    const cols = Object.keys(excelData[0]);
+                    populateSelect('nameCol', cols, ['name', 'first', 'full', 'customer']);
+                    populateSelect('phoneCol', cols, ['phone', 'mobile', 'cell', 'contact']);
+
+                    // Switch UI
+                    document.getElementById('step-upload').classList.add('hidden');
+                    document.getElementById('step-map').classList.remove('hidden');
+                    hideError();
+
+                } catch (err) {
+                    showError("Invalid Excel file. Please try again.");
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        // Smart Select Helper
+        function populateSelect(id, options, keywords) {
+            const select = document.getElementById(id);
+            select.innerHTML = "";
+            options.forEach(opt => select.add(new Option(opt, opt)));
+            
+            for (let i = 0; i < select.options.length; i++) {
+                if (keywords.some(k => select.options[i].text.toLowerCase().includes(k))) {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        // Conversion Logic
+        function convertContacts() {
+            const btn = document.getElementById('convertBtn');
+            const spinner = document.getElementById('btnSpinner');
+            const nameKey = document.getElementById('nameCol').value;
+            const phoneKey = document.getElementById('phoneCol').value;
+
+            // Show Loading
+            btn.disabled = true;
+            spinner.style.display = 'inline-block';
+            btn.innerHTML = '<span class="spinner" style="display:inline-block"></span> Processing...';
+
+            setTimeout(() => {
+                try {
+                    vcfOutput = "";
+                    let count = 0;
+
+                    excelData.forEach(row => {
+                        let name = row[nameKey];
+                        let phone = row[phoneKey];
+
+                        // FIX 1: Scientific Notation
+                        if (typeof phone === 'number') {
+                            phone = phone.toLocaleString('fullwide', {useGrouping:false});
+                        }
+                        
+                        // FIX 2: Clean Phone
+                        if (phone) {
+                            phone = String(phone).replace(/[^0-9+]/g, '').trim();
+                        }
+
+                        if (name && phone && phone.length >= 5) {
+                            // FIX 3: VCF 3.0 + UTF-8 + N-Field for iPhone
+                            vcfOutput += "BEGIN:VCARD\n";
+                            vcfOutput += "VERSION:3.0\n";
+                            vcfOutput += `FN;CHARSET=UTF-8:${name}\n`;
+                            vcfOutput += `N;CHARSET=UTF-8:;${name};;;\n`; 
+                            vcfOutput += `TEL;TYPE=CELL:${phone}\n`;
+                            vcfOutput += "END:VCARD\n";
+                            count++;
+                        }
+                    });
+
+                    if (count === 0) throw new Error("No valid contacts found.");
+
+                    // Success
+                    document.getElementById('stats').innerText = `✅ Ready to download ${count} contacts!`;
+                    document.getElementById('step-map').classList.add('hidden');
+                    document.getElementById('step-download').classList.remove('hidden');
+                    document.getElementById('downloadBtn').style.display = 'block';
+
+                } catch (err) {
+                    showError(err.message || "Conversion failed.");
+                    btn.disabled = false;
+                    btn.innerHTML = 'Convert to VCF';
+                    spinner.style.display = 'none';
+                }
+            }, 500); // Small delay to allow UI to update
+        }
+
+        function downloadFile() {
+            const blob = new Blob([vcfOutput], { type: 'text/vcard;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `contacts_${Date.now()}.vcf`; // Unique timestamp
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function showError(msg) {
+            const el = document.getElementById('errorMsg');
+            el.innerText = msg;
+            el.style.display = 'block';
+        }
+        function hideError() {
+            document.getElementById('errorMsg').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+
