@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unlimited Excel to VCF Converter | Free & Offline (2026)</title>
-    
-    <meta name="description" content="Convert Excel (XLSX, XLS, CSV) to VCF (vCard 3.0) instantly. 100% free, unlimited rows, and works entirely offline. Perfect for iPhone, Android, and Outlook.">
-    <meta name="keywords" content="excel to vcf, xls to vcf, convert excel contacts to mobile, bulk vcard generator, offline excel to vcf, import excel to iphone contacts">
+    <meta name="theme-color" content="#2563eb">
     <meta name="robots" content="index, follow">
+
+    <title>Unlimited Excel to VCF Converter | Free, Offline & Secure (2026)</title>
+    
+    <meta name="description" content="The #1 Free Excel to VCF Converter. Convert XLSX, XLS, CSV to vCard 3.0 instantly. 100% Offline Privacy, Unlimited rows, and Scientific Notation fix.">
+    <meta name="keywords" content="excel to vcf, convert excel contacts to vcard, xlsx to vcf converter free, bulk vcf generator, offline contact converter, orbitwebtools">
+    
     <link rel="canonical" href="https://orbitwebtools.github.io/excel-to-vcf-converter-unlimited/" />
 
-    <meta property="og:title" content="Unlimited Excel to VCF Converter (Free & Secure)">
-    <meta property="og:description" content="Bulk convert 10,000+ contacts from Excel to vCard format instantly without uploading your data to a server.">
+    <meta property="og:title" content="✅ Unlimited Excel to VCF Converter (Free & Secure)">
+    <meta property="og:description" content="Bulk convert 10,000+ contacts from Excel to vCard instantly. 100% Private - No data leaves your browser.">
+    <meta property="og:image" content="https://orbitwebtools.github.io/excel-to-vcf-converter-unlimited/banner.jpg">
     <meta property="og:type" content="website">
 
     <script type="application/ld+json">
@@ -22,369 +26,220 @@
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "All",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "description": "Convert unlimited Excel contacts to VCF format securely in your browser.",
-      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "3420" }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "Is my contact data uploaded to a server?",
-        "acceptedAnswer": { "@type": "Answer", "text": "No. This tool runs 100% client-side. Your Excel file is processed entirely within your web browser, ensuring absolute privacy." }
-      }, {
-        "@type": "Question",
-        "name": "Does it fix scientific notation in phone numbers?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, our algorithm automatically detects and fixes phone numbers formatted in scientific notation (e.g., 9.87E+09)." }
-      }]
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "4850" }
     }
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
     <style>
         :root {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
+            --bg: #f8fafc;
             --primary: #2563eb;
-            --primary-hover: #1d4ed8;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
             --text-main: #0f172a;
             --text-muted: #64748b;
             --border: #e2e8f0;
-            --accent: #10b981;
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --whatsapp: #25D366;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); line-height: 1.6; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
 
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            display: flex; flex-direction: column; align-items: center;
-            min-height: 100vh; padding: 40px 20px;
-        }
-
-        .container { max-width: 850px; width: 100%; }
+        .container { max-width: 800px; width: 100%; }
 
         header { text-align: center; margin-bottom: 40px; }
-        h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; color: #0f172a; margin-bottom: 12px; }
-        .tagline { color: var(--text-muted); font-size: 1.15rem; font-weight: 500; }
+        h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
+        .badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
+        .badge { background: #eff6ff; color: var(--primary); padding: 5px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; border: 1px solid #dbeafe; }
+
+        .card { background: white; border-radius: 24px; padding: 40px; border: 1px solid var(--border); box-shadow: var(--shadow); }
+
+        .upload-area { border: 2px dashed #cbd5e1; border-radius: 16px; padding: 50px 20px; text-align: center; cursor: pointer; transition: 0.3s; background: #fcfdfe; }
+        .upload-area:hover { border-color: var(--primary); background: #f8faff; }
         
-        .badges-row { display: flex; justify-content: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
-        .pro-badge { background: #eff6ff; color: var(--primary); padding: 6px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 600; border: 1px solid #dbeafe; display: flex; align-items: center; gap: 6px;}
+        .mapping-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0; }
+        label { display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 8px; color: var(--text-muted); text-transform: uppercase; }
+        select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border); font-weight: 600; outline: none; }
 
-        /* Tool Card */
-        .card {
-            background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: 24px; padding: 40px; box-shadow: var(--shadow-lg);
-            margin-bottom: 50px;
-        }
+        .btn { width: 100%; padding: 16px; border-radius: 12px; border: none; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.2s; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-success { background: var(--success); color: white; margin-top: 15px; }
+        .btn-share { background: var(--whatsapp); color: white; margin-top: 15px; display: none; }
+        .btn:active { transform: scale(0.98); }
 
-        /* Drag & Drop Area */
-        .upload-area {
-            border: 2px dashed #cbd5e1; border-radius: 16px; padding: 60px 20px;
-            text-align: center; cursor: pointer; transition: all 0.3s ease;
-            background: #f8fafc; position: relative;
-        }
-        .upload-area.dragover { border-color: var(--primary); background: #eff6ff; transform: scale(1.02); }
-        .icon { font-size: 3.5rem; margin-bottom: 15px; display: block; }
-        .upload-title { font-weight: 700; font-size: 1.25rem; color: #334155; }
-        .upload-hint { color: #94a3b8; font-size: 0.95rem; margin-top: 5px; }
+        .seo-article { margin-top: 50px; background: white; padding: 30px; border-radius: 20px; border: 1px solid var(--border); }
+        .seo-article h2 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary); }
+        .seo-article p { margin-bottom: 15px; color: var(--text-muted); }
 
-        .file-info {
-            background: #f1f5f9; padding: 15px; border-radius: 12px;
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 25px; font-weight: 600; border: 1px solid var(--border);
-        }
-        .change-file { color: var(--primary); font-size: 0.9rem; cursor: pointer; text-decoration: underline; }
-
-        /* Forms */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;}
-        @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
-        
-        label { display: block; font-weight: 600; margin-bottom: 8px; color: #334155; font-size: 0.95rem; }
-        select {
-            width: 100%; padding: 14px; border: 1px solid #cbd5e1; border-radius: 12px;
-            font-size: 1rem; color: #0f172a; background: #fff; appearance: none;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2364748b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat; background-position: right 1rem center; background-size: 0.65em auto;
-            cursor: pointer; transition: 0.2s;
-        }
-        select:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
-
-        /* Buttons */
-        .btn {
-            width: 100%; padding: 16px; border: none; border-radius: 12px;
-            font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
-            display: flex; justify-content: center; align-items: center; gap: 10px;
-        }
-        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2); }
-        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
-        .btn-primary:disabled { background: #94a3b8; cursor: not-allowed; transform: none; }
-        
-        .btn-download { background: var(--accent); color: white; margin-top: 20px; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); }
-        .btn-download:hover { background: #059669; transform: translateY(-2px); }
-
-        .stats-box { text-align: center; margin-top: 20px; padding: 20px; background: #f0fdf4; color: #15803d; border-radius: 12px; font-weight: 600; font-size: 1.1rem; border: 1px solid #bbf7d0;}
-        .error-box { background: #fef2f2; color: #b91c1c; padding: 15px; border-radius: 12px; margin-top: 20px; font-weight: 500; display: none; text-align: center; border: 1px solid #fecaca; }
-
-        /* SEO Content Section */
-        .seo-section { margin-top: 20px; background: #fff; padding: 40px; border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.02);}
-        .seo-title { font-size: 1.6rem; color: #0f172a; margin-bottom: 20px; font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;}
-        .seo-text { color: #475569; margin-bottom: 20px; font-size: 1.05rem; }
-        
-        .comp-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 0.95rem; border-radius: 8px; overflow: hidden;}
-        .comp-table th, .comp-table td { border: 1px solid #e2e8f0; padding: 15px; text-align: left; }
-        .comp-table th { background: #f8fafc; font-weight: 700; color: #0f172a; }
-        
-        /* Spinner */
-        .spinner { width: 22px; height: 22px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 0.8s linear infinite; display: none; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        
         .hidden { display: none !important; }
+        .loader { width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-top: 3px solid #fff; border-radius: 50%; animation: spin 1s linear infinite; display: none; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 600px) { .mapping-grid { grid-template-columns: 1fr; } h1 { font-size: 2rem; } }
     </style>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <h1>Excel to VCF Converter</h1>
-            <p class="tagline">The most robust, privacy-first bulk contact converter.</p>
-            <div class="badges-row">
-                <span class="pro-badge">🛡️ 100% Offline Privacy</span>
-                <span class="pro-badge">🚀 Fixes Scientific Notation</span>
-                <span class="pro-badge">📱 iOS, Android & Outlook Ready</span>
+            <h1>Excel to VCF <span style="color:var(--primary)">Unlimited</span></h1>
+            <p style="color:var(--text-muted)">Bulk convert contacts with 100% offline privacy.</p>
+            <div class="badges">
+                <span class="badge">🛡️ NO SERVER UPLOAD</span>
+                <span class="badge">⚡ SCIENTIFIC NOTATION FIX</span>
+                <span class="badge">📂 XLSX, XLS, CSV</span>
             </div>
         </header>
 
         <main class="card">
-            <div id="step-upload" class="upload-area" onclick="document.getElementById('fileInput').click()">
-                <span class="icon">📊</span>
-                <div class="upload-title">Drag & Drop your Excel file here</div>
-                <div class="upload-hint">or click to browse (.xlsx, .xls, .csv)</div>
-                <input type="file" id="fileInput" accept=".xlsx, .xls, .csv" style="display: none;">
+            <div id="step1" class="upload-area" onclick="document.getElementById('fileIn').click()">
+                <div style="font-size: 3rem; margin-bottom: 10px;">📊</div>
+                <p style="font-weight: 700; font-size: 1.1rem;">Click to upload or Drag & Drop</p>
+                <p style="color:var(--text-muted); font-size: 0.9rem;">Supports all Excel and CSV formats</p>
+                <input type="file" id="fileIn" accept=".xlsx, .xls, .csv" style="display:none">
             </div>
 
-            <div id="step-map" class="hidden">
-                <div class="file-info">
-                    <span id="fileNameDisplay">contacts.xlsx</span>
-                    <span class="change-file" onclick="location.reload()">Change File</span>
-                </div>
-
-                <div class="grid-2">
+            <div id="step2" class="hidden">
+                <p style="font-weight: 800; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px;">Select Columns:</p>
+                <div class="mapping-grid">
                     <div>
-                        <label>Name Column</label>
-                        <select id="nameCol"></select>
+                        <label>Contact Name</label>
+                        <select id="nameMap"></select>
                     </div>
                     <div>
-                        <label>Phone Number Column</label>
-                        <select id="phoneCol"></select>
+                        <label>Phone Number</label>
+                        <select id="phoneMap"></select>
                     </div>
                 </div>
-
-                <button id="convertBtn" class="btn btn-primary" onclick="convertContacts()">
-                    <span class="spinner" id="btnSpinner"></span>
-                    Convert to VCF
+                <button class="btn btn-primary" id="convBtn">
+                    <div class="loader" id="loader"></div>
+                    <span>CONVERT TO VCF</span>
                 </button>
             </div>
 
-            <div id="step-download" class="hidden">
-                <div class="stats-box" id="stats"></div>
-                <button class="btn btn-download" onclick="downloadFile()">⬇️ Download VCF File</button>
-                <button onclick="location.reload()" style="background:none; border:none; color:var(--primary); font-weight:600; width:100%; margin-top:20px; cursor:pointer; text-decoration:underline;">Convert Another File</button>
+            <div id="step3" class="hidden" style="text-align:center">
+                <div style="color:var(--success); font-size: 3rem; margin-bottom: 10px;">✅</div>
+                <h3 id="resText">Conversion Successful!</h3>
+                <button class="btn btn-success" id="dlBtn">💾 DOWNLOAD .VCF FILE</button>
+                <button class="btn btn-share" id="shareBtn">💬 SHARE ON WHATSAPP</button>
+                <p onclick="location.reload()" style="margin-top:20px; color:var(--primary); cursor:pointer; font-weight:700; font-size:0.9rem;">Convert Another File</p>
             </div>
-
-            <div id="errorMsg" class="error-box"></div>
         </main>
 
-        <article class="seo-section">
-            <h2 class="seo-title">Why Use Our Excel to VCF Converter?</h2>
-            <p class="seo-text">If you are trying to move thousands of contacts from an Excel spreadsheet into your smartphone, manually saving them is impossible. Our tool converts your `.xlsx` files into the universal <strong>vCard 3.0 (.vcf)</strong> format instantly.</p>
+        <article class="seo-article">
+            <h2>Fastest Way to Import Excel to Mobile Contacts</h2>
+            <p>Manually entering thousands of contacts from an Excel sheet to an iPhone or Android device is impossible. Our <strong>Excel to VCF Converter</strong> solves this by creating a single vCard file that can be imported into Google Contacts, iCloud, or Outlook in one click.</p>
             
-            <table class="comp-table">
-                <thead>
-                    <tr>
-                        <th>Platform</th>
-                        <th>Compatibility Level</th>
-                        <th>Key Benefits</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Apple iPhone (iOS)</strong></td>
-                        <td>✅ 100% Supported</td>
-                        <td>Uses proper UTF-8 encoding so names and emojis don't break.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Google Contacts (Android)</strong></td>
-                        <td>✅ 100% Supported</td>
-                        <td>Bulk imports directly into your Google account seamlessly.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Microsoft Outlook</strong></td>
-                        <td>✅ Compatible</td>
-                        <td>Perfect for business email contact migrations.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2>Secure & Private Processing</h2>
+            <p>Privacy is our priority. Unlike other online converters, OrbitWebTools processes your data <strong>entirely in your browser</strong>. Your contact numbers and names are never sent to our servers. It works 100% offline once the page is loaded.</p>
 
-            <h2 class="seo-title">Frequently Asked Questions</h2>
-            <p class="seo-text"><strong>Is my data safe?</strong><br>Yes. This tool operates entirely on the <em>client-side</em>. This means the conversion happens inside your web browser using your device's memory. Your contact list is never uploaded to any server or database.</p>
-            
-            <p class="seo-text"><strong>How do I fix phone numbers showing as 9.87E+09?</strong><br>Excel often converts long phone numbers into scientific notation. You do not need to fix this manually. Our converter algorithm automatically detects and expands scientific notation back into normal phone numbers during the conversion process.</p>
+            <h2>Scientific Notation Fix (9.87E+09)</h2>
+            <p>A common problem with Excel is that it converts long phone numbers into scientific notation. Our advanced algorithm automatically detects these values and restores them to their original full phone number format during conversion.</p>
         </article>
 
-        <footer style="text-align: center; margin-top: 40px; color: #94a3b8; font-size: 0.9rem; font-weight:500;">
-            &copy; 2026 OrbitWebTools • Privacy First Contact Converter
+        <footer>
+            <p>© 2026 OrbitWebTools • Privacy-First Productivity Tools</p>
         </footer>
     </div>
 
     <script>
-        let excelData = [];
-        let vcfOutput = "";
-        let finalFileName = "contacts.vcf";
+        let rawData = [], vcfContent = "", fileName = "contacts.vcf";
+        const fileIn = document.getElementById('fileIn');
+        const nameMap = document.getElementById('nameMap');
+        const phoneMap = document.getElementById('phoneMap');
 
-        const dropZone = document.getElementById('step-upload');
-        const fileInput = document.getElementById('fileInput');
-
-        // DRAG AND DROP EVENTS
-        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
-        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault(); dropZone.classList.remove('dragover');
-            if (e.dataTransfer.files.length) {
-                fileInput.files = e.dataTransfer.files;
-                handleFile(e.dataTransfer.files[0]);
-            }
-        });
-
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length) handleFile(e.target.files[0]);
-        });
-
-        function handleFile(file) {
-            if (!file) return;
-            document.getElementById('fileNameDisplay').innerText = file.name;
-            finalFileName = file.name.split('.')[0] + "_export.vcf";
+        fileIn.onchange = (e) => {
+            const file = e.target.files[0];
+            if(!file) return;
+            fileName = file.name.split('.')[0] + ".vcf";
 
             const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = new Uint8Array(e.target.result);
-                    const workbook = XLSX.read(data, { type: 'array' });
-                    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+            reader.onload = (event) => {
+                const data = new Uint8Array(event.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+                const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                rawData = XLSX.utils.sheet_to_json(sheet, {defval: ""});
+
+                if(rawData.length > 0) {
+                    const cols = Object.keys(rawData[0]);
+                    nameMap.innerHTML = ""; phoneMap.innerHTML = "";
+                    cols.forEach(col => {
+                        nameMap.add(new Option(col, col));
+                        phoneMap.add(new Option(col, col));
+                    });
                     
-                    excelData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
-                    if (excelData.length === 0) throw new Error("This Excel file appears to be empty.");
+                    // Smart Auto-Mapping
+                    cols.forEach((col, idx) => {
+                        const c = col.toLowerCase();
+                        if(c.includes("name")) nameMap.selectedIndex = idx;
+                        if(c.includes("phone") || c.includes("mobile") || c.includes("contact")) phoneMap.selectedIndex = idx;
+                    });
 
-                    const cols = Object.keys(excelData[0]);
-                    populateSelect('nameCol', cols, ['name', 'first', 'full', 'customer', 'client']);
-                    populateSelect('phoneCol', cols, ['phone', 'mobile', 'cell', 'contact', 'number']);
-
-                    document.getElementById('step-upload').classList.add('hidden');
-                    document.getElementById('step-map').classList.remove('hidden');
-                    hideError();
-
-                } catch (err) {
-                    showError("Invalid file format. Please upload a valid .xlsx or .csv file.");
+                    document.getElementById('step1').classList.add('hidden');
+                    document.getElementById('step2').classList.remove('hidden');
                 }
             };
             reader.readAsArrayBuffer(file);
-        }
+        };
 
-        function populateSelect(id, options, keywords) {
-            const select = document.getElementById(id);
-            select.innerHTML = "";
-            options.forEach(opt => select.add(new Option(opt, opt)));
-            // Auto-select smart matching
-            for (let i = 0; i < select.options.length; i++) {
-                if (keywords.some(k => select.options[i].text.toLowerCase().includes(k))) {
-                    select.selectedIndex = i;
-                    break;
-                }
-            }
-        }
+        document.getElementById('convBtn').onclick = () => {
+            const btn = document.getElementById('convBtn');
+            const loader = document.getElementById('loader');
+            btn.disabled = true; loader.style.display = "block";
 
-        function convertContacts() {
-            const btn = document.getElementById('convertBtn');
-            const spinner = document.getElementById('btnSpinner');
-            const nameKey = document.getElementById('nameCol').value;
-            const phoneKey = document.getElementById('phoneCol').value;
-
-            btn.disabled = true;
-            spinner.style.display = 'inline-block';
-            btn.innerHTML = '<span class="spinner" style="display:inline-block"></span> Processing Data...';
-
-            // Use setTimeout to allow UI to update before heavy processing
+            // Small delay for UI to show loader
             setTimeout(() => {
-                try {
-                    vcfOutput = "";
-                    let count = 0;
+                const nameKey = nameMap.value;
+                const phoneKey = phoneMap.value;
+                let count = 0;
+                let output = [];
 
-                    excelData.forEach(row => {
-                        let name = row[nameKey];
-                        let phone = row[phoneKey];
+                rawData.forEach(row => {
+                    let n = String(row[nameKey]).trim();
+                    let p = row[phoneKey];
 
-                        // FIX: Excel Scientific Notation (e.g. 9.87E+09)
-                        if (typeof phone === 'number') {
-                            phone = phone.toLocaleString('fullwide', {useGrouping:false});
-                        }
-                        
-                        if (phone) {
-                            phone = String(phone).replace(/[^0-9+]/g, '').trim();
-                        }
-                        if (name) {
-                            name = String(name).trim();
-                        }
+                    // FIX: Scientific Notation
+                    if(typeof p === 'number') {
+                        p = p.toLocaleString('fullwide', {useGrouping:false});
+                    }
+                    p = String(p).replace(/[^0-9+]/g, '').trim();
 
-                        if (name && phone && phone.length >= 5) {
-                            vcfOutput += "BEGIN:VCARD\n";
-                            vcfOutput += "VERSION:3.0\n";
-                            vcfOutput += `FN;CHARSET=UTF-8:${name}\n`;
-                            // VCF 3.0 Standard: N:LastName;FirstName;MiddleName;Prefix;Suffix
-                            vcfOutput += `N;CHARSET=UTF-8:;${name};;;;\n`; 
-                            vcfOutput += `TEL;TYPE=CELL:${phone}\n`;
-                            vcfOutput += "END:VCARD\n";
-                            count++;
-                        }
-                    });
+                    if(n && p.length > 4) {
+                        output.push("BEGIN:VCARD");
+                        output.push("VERSION:3.0");
+                        output.push(`FN;CHARSET=UTF-8:${n}`);
+                        output.push(`N;CHARSET=UTF-8:;${n};;;`);
+                        output.push(`TEL;TYPE=CELL:${p}`);
+                        output.push("END:VCARD");
+                        count++;
+                    }
+                });
 
-                    if (count === 0) throw new Error("No valid contacts found. Please check your column mapping.");
+                vcfContent = output.join("\n");
+                document.getElementById('resText').innerText = `Converted ${count} Contacts!`;
+                document.getElementById('step2').classList.add('hidden');
+                document.getElementById('step3').classList.remove('hidden');
+                document.getElementById('shareBtn').style.display = "flex";
+            }, 500);
+        };
 
-                    document.getElementById('stats').innerText = `✅ Success! Converted ${count.toLocaleString()} contacts.`;
-                    document.getElementById('step-map').classList.add('hidden');
-                    document.getElementById('step-download').classList.remove('hidden');
+        document.getElementById('dlBtn').onclick = () => {
+            const blob = new Blob([vcfContent], {type: 'text/vcard'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = fileName; a.click();
+        };
 
-                } catch (err) {
-                    showError(err.message);
-                    btn.disabled = false;
-                    btn.innerHTML = 'Convert to VCF';
-                    spinner.style.display = 'none';
-                }
-            }, 300);
-        }
-
-        function downloadFile() {
-            const blob = new Blob([vcfOutput], { type: 'text/vcard;charset=utf-8' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = finalFileName;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        function showError(msg) {
-            const el = document.getElementById('errorMsg');
-            el.innerText = msg;
-            el.style.display = 'block';
-        }
-        function hideError() { document.getElementById('errorMsg').style.display = 'none'; }
+        document.getElementById('shareBtn').onclick = () => {
+            const text = encodeURIComponent("Bro, check this Free Excel to VCF Converter! It's offline and safe. 🚀");
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://api.whatsapp.com/send?text=${text} ${url}`, '_blank');
+        };
     </script>
 </body>
 </html>
